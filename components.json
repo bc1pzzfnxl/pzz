@@ -1,8 +1,0 @@
-{
-  "$comment": "Your component-library stock. `create --ui <name>` applies the matching entry. Types: shadcn (bunx shadcn add <items>), npm (bun add <packages>), manual (printed instructions).",
-  "libraries": {
-    "shadcn": { "type": "shadcn", "items": ["button", "card", "dialog"] },
-    "tremor": { "type": "npm", "packages": ["@tremor/react"] },
-    "aceternity": { "type": "manual", "note": "copy components from https://ui.aceternity.com/components" }
-  }
-}

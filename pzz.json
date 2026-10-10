@@ -1,0 +1,59 @@
+{
+  "docUrl": "https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md",
+  "tools": [
+    {
+      "name": "MDXCN",
+      "url": "https://www.mdxcn.dev/",
+      "task": "Markdown / MDX authoring"
+    },
+    {
+      "name": "Numbers",
+      "url": "https://numbers.sfinterface.com/",
+      "task": "Displaying numbers, stats, metrics"
+    },
+    {
+      "name": "VoidAuth",
+      "url": "https://voidauth.app/",
+      "task": "Adding authentication"
+    },
+    {
+      "name": "Kugiri",
+      "url": "https://edoardolunardi.github.io/kugiri/",
+      "task": "Animating text appearance",
+      "repo": "edoardolunardi/kugiri"
+    },
+    {
+      "name": "Component Gallery",
+      "url": "https://component.gallery/components/",
+      "task": "Choosing UI wording, components, patterns"
+    },
+    {
+      "name": "SVGL",
+      "url": "https://svgl.app/",
+      "task": "Adding logos / brand marks"
+    },
+    {
+      "name": "ShadScan",
+      "url": "https://www.shadscan.com/docs",
+      "task": "Auditing a shadcn/ui codebase"
+    },
+    {
+      "name": "env.style",
+      "url": "https://www.env.style/",
+      "task": "Local development (environment favicons)"
+    },
+    {
+      "name": "shieldcn",
+      "url": "https://shieldcn.dev/docs",
+      "task": "README badges"
+    }
+  ],
+  "ui": {
+    "starter": { "type": "shadcn", "items": ["button", "card", "dialog"] },
+    "tremor": { "type": "npm", "packages": ["@tremor/react"] },
+    "aceternity": {
+      "type": "manual",
+      "note": "copy components from https://ui.aceternity.com/components"
+    }
+  }
+}
