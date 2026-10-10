@@ -76,5 +76,3 @@ bun run lint        # Biome
 bun run typecheck   # tsc --noEmit
 bun test            # unit tests
 ```
-
-CI runs lint, typecheck and tests on every push.
