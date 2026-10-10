@@ -1,0 +1,14 @@
+{
+  "homepage": "https://pzz.bc1pzzfnxl.com/llms.txt",
+  "tools": [
+    { "name": "MDXCN", "url": "https://www.mdxcn.dev/", "use": "Markdown / MDX authoring" },
+    { "name": "Numbers", "url": "https://numbers.sfinterface.com/", "use": "displaying numbers, stats, metrics" },
+    { "name": "VoidAuth", "url": "https://voidauth.app/", "use": "adding authentication" },
+    { "name": "Kugiri", "url": "https://edoardolunardi.github.io/kugiri/", "use": "animating text appearance" },
+    { "name": "Component Gallery", "url": "https://component.gallery/components/", "use": "choosing UI wording, components, patterns" },
+    { "name": "SVGL", "url": "https://svgl.app/", "use": "adding logos / brand marks" },
+    { "name": "ShadScan", "url": "https://www.shadscan.com/docs", "use": "auditing a shadcn/ui codebase" },
+    { "name": "env.style", "url": "https://www.env.style/", "use": "local development (environment favicons)" },
+    { "name": "shieldcn", "url": "https://shieldcn.dev/docs", "use": "README badges" }
+  ]
+}
