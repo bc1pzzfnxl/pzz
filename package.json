@@ -1,7 +1,11 @@
 {
   "name": "pzz",
   "private": true,
+  "bin": {
+    "create-pzz": "scripts/create.mjs"
+  },
   "scripts": {
-    "generate": "node scripts/generate.mjs"
+    "generate": "node scripts/generate.mjs",
+    "create": "bun scripts/create.mjs"
   }
 }
