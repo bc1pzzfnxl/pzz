@@ -1,6 +1,6 @@
 ---
 name: voidauth
-description: Use for adding authentication, with VoidAuth.
+description: Use for adding authentication, with VoidAuth, and when the request mentions login, sign-in, SSO, OAuth, identity provider, self-hosted auth.
 ---
 
 # VoidAuth

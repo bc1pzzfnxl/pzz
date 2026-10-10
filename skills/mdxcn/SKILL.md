@@ -1,6 +1,6 @@
 ---
 name: mdxcn
-description: Use for markdown / MDX authoring, with MDXCN.
+description: Use for markdown / MDX authoring, with MDXCN, and when the request mentions MDX, callout, note block, warning box, steps, terminal block.
 ---
 
 # MDXCN

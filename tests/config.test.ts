@@ -62,6 +62,11 @@ describe("parseConfig", () => {
     expect(() => parseConfig(dup)).toThrow("collides");
   });
 
+  test("rejects keywords that are not strings", () => {
+    const bad = { ...valid, tools: [{ ...valid.tools[0], keywords: "login" }] };
+    expect(() => parseConfig(bad)).toThrow("tools[0].keywords");
+  });
+
   test("rejects a malformed url", () => {
     expect(() => parseConfig({ ...valid, docUrl: "not a url" })).toThrow(
       "docUrl",

@@ -1,6 +1,6 @@
 ---
 name: env-style
-description: Use for local development (environment favicons), with env.style.
+description: Use for local development (environment favicons), with env.style, and when the request mentions favicon, dev environment, local dev tabs, staging tab, environment indicator.
 ---
 
 # env.style

@@ -1,6 +1,6 @@
 ---
 name: numbers
-description: Use for displaying numbers, stats, metrics, with Numbers.
+description: Use for displaying numbers, stats, metrics, with Numbers, and when the request mentions counter, animated number, stats, metric, KPI, count up.
 ---
 
 # Numbers

@@ -1,6 +1,6 @@
 ---
 name: svgl
-description: Use for adding logos / brand marks, with SVGL.
+description: Use for adding logos / brand marks, with SVGL, and when the request mentions logo, brand logo, company logo, brand mark, SVG logo, partner logos.
 ---
 
 # SVGL

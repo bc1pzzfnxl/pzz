@@ -8,6 +8,7 @@ const llms: Tool = {
   task: "Adding authentication",
   source: "llms",
   desc: "Auth for you.",
+  keywords: ["login", "SSO"],
 };
 
 const docs: Tool = {
@@ -16,6 +17,7 @@ const docs: Tool = {
   task: "Reading the docs",
   source: "docs",
   desc: null,
+  keywords: [],
 };
 
 const config: PzzConfig = {
@@ -50,7 +52,13 @@ describe("renderSkill", () => {
     const skill = renderSkill(llms, config.docUrl);
     expect(skill).toContain("name: tool\n");
     expect(skill).toContain(
-      "description: Use for adding authentication, with Tool.\n",
+      "description: Use for adding authentication, with Tool, and when the request mentions login, SSO.\n",
+    );
+  });
+
+  test("lists keywords as triggers in the description", () => {
+    expect(renderSkill(llms, config.docUrl)).toContain(
+      "description: Use for adding authentication, with Tool, and when the request mentions login, SSO.",
     );
   });
 

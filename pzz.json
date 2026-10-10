@@ -6,63 +6,131 @@
       "url": "https://www.mdxcn.dev/llms.txt",
       "task": "Markdown / MDX authoring",
       "source": "llms",
-      "desc": "Markdown-friendly react components for mdx."
+      "desc": "Markdown-friendly react components for mdx.",
+      "keywords": [
+        "MDX",
+        "callout",
+        "note block",
+        "warning box",
+        "steps",
+        "terminal block"
+      ]
     },
     {
       "name": "Numbers",
       "url": "https://numbers.sfinterface.com/",
       "task": "Displaying numbers, stats, metrics",
       "source": "meta",
-      "desc": "Numbers that move the way they should."
+      "desc": "Numbers that move the way they should.",
+      "keywords": [
+        "counter",
+        "animated number",
+        "stats",
+        "metric",
+        "KPI",
+        "count up"
+      ]
     },
     {
       "name": "VoidAuth",
       "url": "https://voidauth.app/",
       "task": "Adding authentication",
       "source": "meta",
-      "desc": "Single Sign-On for Your Self-Hosted Universe."
+      "desc": "Single Sign-On for Your Self-Hosted Universe.",
+      "keywords": [
+        "login",
+        "sign-in",
+        "SSO",
+        "OAuth",
+        "identity provider",
+        "self-hosted auth"
+      ]
     },
     {
       "name": "Kugiri",
       "url": "https://edoardolunardi.github.io/kugiri/",
       "task": "Animating text appearance",
       "source": "meta",
-      "desc": "Splits text into lines, words and characters exactly where the browser already broke it."
+      "desc": "Splits text into lines, words and characters exactly where the browser already broke it.",
+      "keywords": [
+        "text animation",
+        "word by word",
+        "split text",
+        "typewriter",
+        "reveal text"
+      ]
     },
     {
       "name": "Component Gallery",
       "url": "https://component.gallery/components/",
       "task": "Choosing UI wording, components, patterns",
       "source": "meta",
-      "desc": "An up-to-date repository of interface components based on examples from the world of design systems, designed to be a reference for anyone building user interfaces."
+      "desc": "An up-to-date repository of interface components based on examples from the world of design systems, designed to be a reference for anyone building user interfaces.",
+      "keywords": [
+        "button label",
+        "UI copy",
+        "which component",
+        "empty state",
+        "delete confirmation",
+        "UI pattern"
+      ]
     },
     {
       "name": "SVGL",
       "url": "https://svgl.app/",
       "task": "Adding logos / brand marks",
       "source": "meta",
-      "desc": "A beautiful library with SVG logos."
+      "desc": "A beautiful library with SVG logos.",
+      "keywords": [
+        "logo",
+        "brand logo",
+        "company logo",
+        "brand mark",
+        "SVG logo",
+        "partner logos"
+      ]
     },
     {
       "name": "ShadScan",
       "url": "https://www.shadscan.com/docs",
       "task": "Auditing a shadcn/ui codebase",
       "source": "meta",
-      "desc": "Run Shadscan, check rendered UI at mobile and desktop widths, inspect a progress-bar score, launch a coding agent, and enforce score thresholds."
+      "desc": "Run Shadscan, check rendered UI at mobile and desktop widths, inspect a progress-bar score, launch a coding agent, and enforce score thresholds.",
+      "keywords": [
+        "UI audit",
+        "mobile layout",
+        "responsive check",
+        "shadcn review",
+        "UI score"
+      ]
     },
     {
       "name": "env.style",
       "url": "https://www.env.style/",
       "task": "Local development (environment favicons)",
       "source": "meta",
-      "desc": "Style your favicon with colors or custom icons, so every tab shows where you are."
+      "desc": "Style your favicon with colors or custom icons, so every tab shows where you are.",
+      "keywords": [
+        "favicon",
+        "dev environment",
+        "local dev tabs",
+        "staging tab",
+        "environment indicator"
+      ]
     },
     {
       "name": "shieldcn",
       "url": "https://shieldcn.dev/llms.txt",
       "task": "README badges",
       "source": "llms",
-      "desc": "Beautiful README badges."
+      "desc": "Beautiful README badges.",
+      "keywords": [
+        "badge",
+        "shields",
+        "npm version badge",
+        "license badge",
+        "status badge"
+      ]
     }
   ]
 }

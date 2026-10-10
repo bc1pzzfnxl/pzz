@@ -13,6 +13,8 @@ export type Tool = {
   task: string;
   source: Source;
   desc: string | null;
+  // Words a user says when the tool is needed; they make the skill trigger.
+  keywords: string[];
 };
 
 export type PzzConfig = {
@@ -70,13 +72,23 @@ function parseTool(value: unknown, index: number): Tool {
       : text(tool.desc, `${path}.desc`);
   if (kind !== "docs" && desc === null)
     fail(`${path}.desc`, `is required when source is "${kind}"`);
+  const keywords =
+    tool.keywords === undefined
+      ? []
+      : textArray(tool.keywords, `${path}.keywords`);
   return {
     name: text(tool.name, `${path}.name`),
     url: httpUrl(tool.url, `${path}.url`),
     task: text(tool.task, `${path}.task`),
     source: kind,
     desc,
+    keywords,
   };
+}
+
+function textArray(value: unknown, path: string): string[] {
+  if (!Array.isArray(value)) fail(path, "must be an array of strings");
+  return value.map((item, i) => text(item, `${path}[${i}]`));
 }
 
 export function parseConfig(raw: unknown): PzzConfig {

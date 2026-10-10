@@ -1,6 +1,6 @@
 ---
 name: component-gallery
-description: Use for choosing UI wording, components, patterns, with Component Gallery.
+description: Use for choosing UI wording, components, patterns, with Component Gallery, and when the request mentions button label, UI copy, which component, empty state, delete confirmation, UI pattern.
 ---
 
 # Component Gallery

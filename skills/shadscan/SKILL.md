@@ -1,6 +1,6 @@
 ---
 name: shadscan
-description: Use for auditing a shadcn/ui codebase, with ShadScan.
+description: Use for auditing a shadcn/ui codebase, with ShadScan, and when the request mentions UI audit, mobile layout, responsive check, shadcn review, UI score.
 ---
 
 # ShadScan

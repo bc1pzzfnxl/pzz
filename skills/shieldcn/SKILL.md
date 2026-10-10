@@ -1,6 +1,6 @@
 ---
 name: shieldcn
-description: Use for README badges, with shieldcn.
+description: Use for README badges, with shieldcn, and when the request mentions badge, shields, npm version badge, license badge, status badge.
 ---
 
 # shieldcn

@@ -45,9 +45,13 @@ export function skillName(tool: Tool): string {
 
 export function renderSkill(tool: Tool, docUrl: string): string {
   const summary = tool.desc ? `${tool.desc}\n\n` : "";
+  const triggers =
+    tool.keywords.length > 0
+      ? `, and when the request mentions ${tool.keywords.join(", ")}`
+      : "";
   return `---
 name: ${skillName(tool)}
-description: Use for ${lowerFirst(tool.task)}, with ${tool.name}.
+description: Use for ${lowerFirst(tool.task)}, with ${tool.name}${triggers}.
 ---
 
 # ${tool.name}

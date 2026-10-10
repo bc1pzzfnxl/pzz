@@ -1,6 +1,6 @@
 ---
 name: kugiri
-description: Use for animating text appearance, with Kugiri.
+description: Use for animating text appearance, with Kugiri, and when the request mentions text animation, word by word, split text, typewriter, reveal text.
 ---
 
 # Kugiri
