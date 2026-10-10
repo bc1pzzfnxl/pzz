@@ -19,4 +19,5 @@ bunx skills add bc1pzzfnxl/pzz
 
 ## Toolbox as llms.txt
 
-The live toolbox is served at `<WORKER_URL>/llms.txt`.
+The live toolbox is served at
+<https://frontend-toolbox.bc1pzzfnxl.workers.dev/llms.txt>.

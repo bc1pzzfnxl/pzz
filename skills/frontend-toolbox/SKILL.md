@@ -20,5 +20,6 @@ canonical page before using the tool.
 | Local deployment / environment config | env.style | https://www.env.style/ |
 | Writing a README | shieldcn | https://shieldcn.dev/docs |
 
-The canonical, always-current mapping is served at `<WORKER_URL>/llms.txt`.
+The canonical, always-current mapping is served at
+`https://frontend-toolbox.bc1pzzfnxl.workers.dev/llms.txt`.
 Treat it as the live source of truth and refresh this table from it when it changes.
