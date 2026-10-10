@@ -22,9 +22,11 @@ Install the skills for every harness that reads `.agents/skills`:
 
 ```bash
 bunx skills add bc1pzzfnxl/pzz -g -s '*' -a universal -y
+bunx skills@1.7.2 add https://github.com/bc1pzzfnxl/skill-seo-astro/tree/5ddcb2553de59c8dba6c24ba0eb2eefb068c22e6 -g -a universal -y
 ```
 
-Then add the toolbox block from [Global AGENTS.md](#global-agentsmd) to your
+The second line installs the Astro SEO skill, pinned to a commit. Then add the
+toolbox block from [Global AGENTS.md](#global-agentsmd) to your
 `~/.config/opencode/AGENTS.md`.
 
 ## Global AGENTS.md
@@ -34,8 +36,10 @@ Paste this in your global `AGENTS.md`. It applies to every project:
 ```markdown
 ## Frontend toolbox
 
-For UI work, check `toolbox.md` (https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md)
-and load the skill of the tool that matches the task.
+For UI/frontend work, read `toolbox.md` (https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md)
+and load the skill of the tool that matches the task. Each tool has a skill named
+after it: `mdxcn`, `numbers`, `voidauth`, `kugiri`, `component-gallery`, `svgl`,
+`shadscan`, `env-style`, `shieldcn`.
 
 If the project has an `astro.config.*`, also load `skill-seo-astro`.
 ```
