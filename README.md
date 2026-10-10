@@ -28,7 +28,8 @@ For `--app astro`, the
 [`skill-seo-astro`](https://github.com/bc1pzzfnxl/skill-seo-astro) scaffold is
 applied on top — SEO blog pages (`index`, `[slug]`, RSS, `404`, `robots.txt`,
 `llms.txt`, optimized-images rehype plugin) with the Astro config merged so
-React + Tailwind survive.
+React + Tailwind survive. The same skill is also installed for the agent into
+`.agents/skills/` (shared by OpenCode, Codex, Cursor, Gemini CLI, Copilot…).
 
 | Flag | Meaning |
 | --- | --- |

@@ -104,6 +104,9 @@ function applySeo(target) {
   run("bunx github:bc1pzzfnxl/skill-seo-astro init", target);
   run("bun add @astrojs/mdx @astrojs/sitemap @astrojs/rss @astrojs/markdown-remark unist-util-visit sharp", target);
 
+  // Install the agent skill for every harness (shared .agents/skills project dir).
+  run("bunx skills add bc1pzzfnxl/skill-seo-astro --agent universal --yes", target);
+
   // Merge: keep react + tailwind, add SEO (mdx, sitemap, markdown processor).
   if (opts.dry) console.log("  [dry] write astro.config.mjs (react + tailwind + mdx + sitemap + seo markdown)");
   else {
