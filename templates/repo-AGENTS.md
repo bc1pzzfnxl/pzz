@@ -7,7 +7,7 @@ Project instructions for this repository. Combined with the global
 
 - Install: `bun install`
 - Typecheck: `bun run typecheck`
-- Test: `bun test`
+- Test: `bun test` (once the project has tests)
 - Format / lint: `bun run lint`
 
 ## Layout
