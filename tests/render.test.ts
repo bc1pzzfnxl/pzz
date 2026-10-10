@@ -1,45 +1,83 @@
 import { describe, expect, test } from "bun:test";
-import {
-  type ResolvedTool,
-  renderSkill,
-  renderToolbox,
-} from "../scripts/lib/render.ts";
+import type { PzzConfig, Tool } from "../scripts/lib/config.ts";
+import { renderSkill, renderToolbox } from "../scripts/lib/render.ts";
 
-const tools: ResolvedTool[] = [
-  {
-    name: "Tool",
-    url: "https://x.dev/",
-    task: "Adding authentication",
-    desc: "Auth for you.",
-    bestUrl: "https://x.dev/llms.txt",
-  },
-];
+const llms: Tool = {
+  name: "Tool",
+  url: "https://x.dev/llms.txt",
+  task: "Adding authentication",
+  source: "llms",
+  desc: "Auth for you.",
+};
+
+const docs: Tool = {
+  name: "Docs Only",
+  url: "https://docs.example.com/",
+  task: "Reading the docs",
+  source: "docs",
+  desc: null,
+};
+
+const config: PzzConfig = {
+  docUrl: "https://x.dev/toolbox.md",
+  tools: [llms, docs],
+};
 
 describe("renderToolbox", () => {
-  test("renders the task table and the details list", () => {
-    const md = renderToolbox(tools);
+  test("renders the task table with the source column", () => {
+    const md = renderToolbox(config);
     expect(md).toContain(
-      "| Adding authentication | Tool | https://x.dev/llms.txt |",
+      "| Adding authentication | Tool | https://x.dev/llms.txt | llms |",
     );
     expect(md).toContain(
+      "| Reading the docs | Docs Only | https://docs.example.com/ | docs |",
+    );
+  });
+
+  test("renders details and only adds a description when one exists", () => {
+    const md = renderToolbox(config);
+    expect(md).toContain(
       "- **[Tool](https://x.dev/llms.txt)** — Adding authentication. Auth for you.",
+    );
+    expect(md).toContain(
+      "- **[Docs Only](https://docs.example.com/)** — Reading the docs",
     );
   });
 });
 
 describe("renderSkill", () => {
-  test("emits valid frontmatter without a colon in the description", () => {
-    const skill = renderSkill(tools, "https://x.dev/toolbox.md");
-    const description =
-      skill.split("\n").find((line) => line.startsWith("description:")) ?? "";
-    expect(description).toBe(
-      "description: Preferred UI/frontend tools. Use whenever a task involves Adding authentication.",
+  test("names the skill after the tool and triggers on its task", () => {
+    const skill = renderSkill(llms, config.docUrl);
+    expect(skill).toContain("name: tool\n");
+    expect(skill).toContain(
+      "description: Use for adding authentication, with Tool.\n",
     );
-    expect(description.slice("description:".length)).not.toContain(":");
   });
 
-  test("points to the source document", () => {
-    expect(renderSkill(tools, "https://x.dev/toolbox.md")).toContain(
+  test("keeps the description free of YAML-breaking colons", () => {
+    for (const tool of [llms, docs]) {
+      const line =
+        renderSkill(tool, config.docUrl)
+          .split("\n")
+          .find((l) => l.startsWith("description:")) ?? "";
+      expect(line.slice("description:".length)).not.toContain(":");
+    }
+  });
+
+  test("llms source points at the llms.txt index", () => {
+    expect(renderSkill(llms, config.docUrl)).toContain(
+      "is the tool's `llms.txt` index",
+    );
+  });
+
+  test("docs source sends the agent to the chrome-devtools MCP", () => {
+    const skill = renderSkill(docs, config.docUrl);
+    expect(skill).toContain("`chrome-devtools` MCP");
+    expect(skill).not.toContain("undefined");
+  });
+
+  test("points at the full toolbox document", () => {
+    expect(renderSkill(llms, config.docUrl)).toContain(
       "`https://x.dev/toolbox.md`",
     );
   });

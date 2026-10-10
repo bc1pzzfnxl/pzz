@@ -1,22 +1,23 @@
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
+// How an agent reads a tool's documentation:
+// llms = the tool publishes an llms.txt index at `url`;
+// meta = no index, `desc` is the summary and `url` the page to read;
+// docs = neither, the page must be scraped with the chrome-devtools MCP.
+export type Source = "llms" | "meta" | "docs";
+
 export type Tool = {
   name: string;
   url: string;
   task: string;
-  repo?: string;
+  source: Source;
+  desc: string | null;
 };
-
-export type UiEntry =
-  | { type: "shadcn"; items: string[] }
-  | { type: "npm"; packages: string[] }
-  | { type: "manual"; note: string };
 
 export type PzzConfig = {
   docUrl: string;
   tools: Tool[];
-  ui: Record<string, UiEntry>;
 };
 
 export const repoRoot = resolve(import.meta.dir, "../..");
@@ -47,53 +48,58 @@ function httpUrl(value: unknown, path: string): string {
   return url;
 }
 
-function textArray(value: unknown, path: string): string[] {
-  if (!Array.isArray(value)) fail(path, "must be an array");
-  return value.map((item, i) => text(item, `${path}[${i}]`));
+function source(value: unknown, path: string): Source {
+  if (value === "llms" || value === "meta" || value === "docs") return value;
+  return fail(path, 'must be "llms", "meta" or "docs"');
+}
+
+export function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function parseTool(value: unknown, index: number): Tool {
   const path = `tools[${index}]`;
   const tool = record(value, path);
+  const kind = source(tool.source, `${path}.source`);
+  const desc =
+    tool.desc === undefined || tool.desc === null
+      ? null
+      : text(tool.desc, `${path}.desc`);
+  if (kind !== "docs" && desc === null)
+    fail(`${path}.desc`, `is required when source is "${kind}"`);
   return {
     name: text(tool.name, `${path}.name`),
     url: httpUrl(tool.url, `${path}.url`),
     task: text(tool.task, `${path}.task`),
-    repo: tool.repo === undefined ? undefined : text(tool.repo, `${path}.repo`),
+    source: kind,
+    desc,
   };
-}
-
-function parseUi(value: unknown, path: string): UiEntry {
-  const entry = record(value, path);
-  switch (entry.type) {
-    case "shadcn":
-      return { type: "shadcn", items: textArray(entry.items, `${path}.items`) };
-    case "npm":
-      return {
-        type: "npm",
-        packages: textArray(entry.packages, `${path}.packages`),
-      };
-    case "manual":
-      return { type: "manual", note: text(entry.note, `${path}.note`) };
-    default:
-      return fail(`${path}.type`, 'must be "shadcn", "npm" or "manual"');
-  }
 }
 
 export function parseConfig(raw: unknown): PzzConfig {
   const root = record(raw, "root");
   const tools = root.tools;
   if (!Array.isArray(tools)) fail("tools", "must be an array");
-  const ui = record(root.ui, "ui");
+  const parsed = tools.map(parseTool);
+
+  const seen = new Set<string>();
+  for (const tool of parsed) {
+    const slug = slugify(tool.name);
+    if (!slug) fail("tools", `"${tool.name}" has no usable skill name`);
+    if (seen.has(slug))
+      fail(
+        "tools",
+        `"${tool.name}" collides with another tool named "${slug}"`,
+      );
+    seen.add(slug);
+  }
+
   return {
     docUrl: httpUrl(root.docUrl, "docUrl"),
-    tools: tools.map(parseTool),
-    ui: Object.fromEntries(
-      Object.entries(ui).map(([key, entry]) => [
-        key,
-        parseUi(entry, `ui.${key}`),
-      ]),
-    ),
+    tools: parsed,
   };
 }
 

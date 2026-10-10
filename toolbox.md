@@ -2,17 +2,17 @@
 
 Preferred tools for UI/frontend work. Pick the row matching the task, then open its canonical page.
 
-| Task | Tool | Canonical page |
-| --- | --- | --- |
-| Markdown / MDX authoring | MDXCN | https://www.mdxcn.dev/llms.txt |
-| Displaying numbers, stats, metrics | Numbers | https://numbers.sfinterface.com/ |
-| Adding authentication | VoidAuth | https://voidauth.app/ |
-| Animating text appearance | Kugiri | https://edoardolunardi.github.io/kugiri/ |
-| Choosing UI wording, components, patterns | Component Gallery | https://component.gallery/components/ |
-| Adding logos / brand marks | SVGL | https://svgl.app/ |
-| Auditing a shadcn/ui codebase | ShadScan | https://www.shadscan.com/docs |
-| Local development (environment favicons) | env.style | https://www.env.style/ |
-| README badges | shieldcn | https://shieldcn.dev/llms.txt |
+| Task | Tool | Canonical page | Source |
+| --- | --- | --- | --- |
+| Markdown / MDX authoring | MDXCN | https://www.mdxcn.dev/llms.txt | llms |
+| Displaying numbers, stats, metrics | Numbers | https://numbers.sfinterface.com/ | meta |
+| Adding authentication | VoidAuth | https://voidauth.app/ | meta |
+| Animating text appearance | Kugiri | https://edoardolunardi.github.io/kugiri/ | meta |
+| Choosing UI wording, components, patterns | Component Gallery | https://component.gallery/components/ | meta |
+| Adding logos / brand marks | SVGL | https://svgl.app/ | meta |
+| Auditing a shadcn/ui codebase | ShadScan | https://www.shadscan.com/docs | meta |
+| Local development (environment favicons) | env.style | https://www.env.style/ | meta |
+| README badges | shieldcn | https://shieldcn.dev/llms.txt | llms |
 
 ## Details
 

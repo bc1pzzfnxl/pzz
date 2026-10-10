@@ -3,57 +3,66 @@
   "tools": [
     {
       "name": "MDXCN",
-      "url": "https://www.mdxcn.dev/",
-      "task": "Markdown / MDX authoring"
+      "url": "https://www.mdxcn.dev/llms.txt",
+      "task": "Markdown / MDX authoring",
+      "source": "llms",
+      "desc": "Markdown-friendly react components for mdx."
     },
     {
       "name": "Numbers",
       "url": "https://numbers.sfinterface.com/",
-      "task": "Displaying numbers, stats, metrics"
+      "task": "Displaying numbers, stats, metrics",
+      "source": "meta",
+      "desc": "Numbers that move the way they should."
     },
     {
       "name": "VoidAuth",
       "url": "https://voidauth.app/",
-      "task": "Adding authentication"
+      "task": "Adding authentication",
+      "source": "meta",
+      "desc": "Single Sign-On for Your Self-Hosted Universe."
     },
     {
       "name": "Kugiri",
       "url": "https://edoardolunardi.github.io/kugiri/",
       "task": "Animating text appearance",
-      "repo": "edoardolunardi/kugiri"
+      "source": "meta",
+      "desc": "Splits text into lines, words and characters exactly where the browser already broke it."
     },
     {
       "name": "Component Gallery",
       "url": "https://component.gallery/components/",
-      "task": "Choosing UI wording, components, patterns"
+      "task": "Choosing UI wording, components, patterns",
+      "source": "meta",
+      "desc": "An up-to-date repository of interface components based on examples from the world of design systems, designed to be a reference for anyone building user interfaces."
     },
     {
       "name": "SVGL",
       "url": "https://svgl.app/",
-      "task": "Adding logos / brand marks"
+      "task": "Adding logos / brand marks",
+      "source": "meta",
+      "desc": "A beautiful library with SVG logos."
     },
     {
       "name": "ShadScan",
       "url": "https://www.shadscan.com/docs",
-      "task": "Auditing a shadcn/ui codebase"
+      "task": "Auditing a shadcn/ui codebase",
+      "source": "meta",
+      "desc": "Run Shadscan, check rendered UI at mobile and desktop widths, inspect a progress-bar score, launch a coding agent, and enforce score thresholds."
     },
     {
       "name": "env.style",
       "url": "https://www.env.style/",
-      "task": "Local development (environment favicons)"
+      "task": "Local development (environment favicons)",
+      "source": "meta",
+      "desc": "Style your favicon with colors or custom icons, so every tab shows where you are."
     },
     {
       "name": "shieldcn",
-      "url": "https://shieldcn.dev/docs",
-      "task": "README badges"
+      "url": "https://shieldcn.dev/llms.txt",
+      "task": "README badges",
+      "source": "llms",
+      "desc": "Beautiful README badges."
     }
-  ],
-  "ui": {
-    "starter": { "type": "shadcn", "items": ["button", "card", "dialog"] },
-    "tremor": { "type": "npm", "packages": ["@tremor/react"] },
-    "aceternity": {
-      "type": "manual",
-      "note": "copy components from https://ui.aceternity.com/components"
-    }
-  }
+  ]
 }
