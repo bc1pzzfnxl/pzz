@@ -24,6 +24,12 @@ bun run create <name> --app astro|next [--ui <library>] [--dry-run]
 Scaffolds **bun + Astro** (single-page) or **bun + Next** (multi-page) with
 **React/shadcn**, **Biome** as the quality gate, and a repository `AGENTS.md`.
 
+For `--app astro`, the
+[`skill-seo-astro`](https://github.com/bc1pzzfnxl/skill-seo-astro) scaffold is
+applied on top — SEO blog pages (`index`, `[slug]`, RSS, `404`, `robots.txt`,
+`llms.txt`, optimized-images rehype plugin) with the Astro config merged so
+React + Tailwind survive.
+
 | Flag | Meaning |
 | --- | --- |
 | `--app astro` | single-page site (Astro) |

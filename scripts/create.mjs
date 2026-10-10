@@ -5,7 +5,7 @@
 // Usage:
 //   bun scripts/create.mjs <name> [--app astro|next] [--ui <library>] [--dry-run]
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createInterface } from "node:readline/promises";
@@ -68,6 +68,48 @@ function ensureAlias(target) {
   ts.compilerOptions.paths = { "@/*": ["./src/*"], ...(ts.compilerOptions.paths ?? {}) };
   writeFileSync(tsPath, `${JSON.stringify(ts, null, 2)}\n`);
   console.log('  · tsconfig alias @/* → ./src/*');
+}
+
+const ASTRO_CONFIG = `import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+import { rehypeOptimizedImages } from "./src/lib/rehype-optimized-images.ts";
+
+export default defineConfig({
+  site: "https://example.com",
+  trailingSlash: "always",
+  markdown: {
+    processor: unified({
+      rehypePlugins: [rehypeOptimizedImages],
+    }),
+  },
+  integrations: [react(), mdx(), sitemap()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+`;
+
+function applySeo(target) {
+  console.log("  · Astro SEO (skill-seo-astro)");
+
+  // Let the SEO skill own the homepage instead of Astro's default one.
+  const index = join(target, "src/pages/index.astro");
+  if (opts.dry) console.log("  [dry] rm src/pages/index.astro");
+  else if (existsSync(index)) rmSync(index);
+
+  run("bunx github:bc1pzzfnxl/skill-seo-astro init", target);
+  run("bun add @astrojs/mdx @astrojs/sitemap @astrojs/rss @astrojs/markdown-remark unist-util-visit sharp", target);
+
+  // Merge: keep react + tailwind, add SEO (mdx, sitemap, markdown processor).
+  if (opts.dry) console.log("  [dry] write astro.config.mjs (react + tailwind + mdx + sitemap + seo markdown)");
+  else {
+    writeFileSync(join(target, "astro.config.mjs"), ASTRO_CONFIG);
+    console.log("  · astro.config.mjs merged (react + tailwind + seo)");
+  }
 }
 
 function copyAgents(target) {
@@ -142,6 +184,9 @@ run("bunx shadcn@latest init --defaults --yes", target);
 
 // --- 3. component library (optional) --------------------------------------
 if (opts.ui) applyUi(opts.ui, target);
+
+// --- 3b. Astro SEO scaffold ------------------------------------------------
+if (opts.app === "astro") applySeo(target);
 
 // --- 4. quality gate: Biome -----------------------------------------------
 run("bun add -d @biomejs/biome", target);
