@@ -7,7 +7,7 @@
 - [MDXCN](https://www.mdxcn.dev/llms.txt): Markdown / MDX authoring — markdown-friendly react components for mdx. callouts, steps, terminals, charts, and timelines that sit between paragraphs. the shadcn cli copies them into your project. there is no npm package.
 - [Numbers](https://numbers.sfinterface.com/): displaying numbers, stats, metrics — Numbers that move the way they should. A React component from The San Francisco Interface.
 - [VoidAuth](https://voidauth.app/): adding authentication — Single Sign-On for Your Self-Hosted Universe 🐈‍⬛🔒
-- [Kugiri](https://edoardolunardi.github.io/kugiri/): animating text appearance
+- [Kugiri](https://edoardolunardi.github.io/kugiri/): animating text appearance — Splits text into lines, words and characters exactly where the browser already broke it.
 - [Component Gallery](https://component.gallery/components/): choosing UI wording, components, patterns — An up-to-date repository of interface components based on examples from the world of design systems, designed to be a reference for anyone building user interfaces.
 - [SVGL](https://svgl.app/): adding logos / brand marks — A beautiful library with SVG logos
 - [ShadScan](https://www.shadscan.com/docs): auditing a shadcn/ui codebase — Run Shadscan, check rendered UI at mobile and desktop widths, inspect a progress-bar score, launch a coding agent, and enforce score thresholds.

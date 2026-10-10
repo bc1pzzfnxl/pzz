@@ -21,6 +21,20 @@ function firstMatch(html, patterns) {
   return null;
 }
 
+async function githubDesc(repo) {
+  if (!repo) return null;
+  try {
+    const headers = { ...UA, accept: "application/vnd.github+json" };
+    if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    const res = await fetch(`https://api.github.com/repos/${repo}`, { headers });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return typeof data.description === "string" && data.description ? data.description : null;
+  } catch {
+    return null;
+  }
+}
+
 async function extract(tool) {
   const origin = new URL(tool.url).origin;
   let desc = null;
@@ -37,6 +51,8 @@ async function extract(tool) {
   } catch {
     console.warn(`! could not fetch ${tool.url}`);
   }
+
+  if (!desc) desc = await githubDesc(tool.repo);
 
   try {
     const res = await fetch(`${origin}/llms.txt`, { redirect: "follow", headers: UA });
