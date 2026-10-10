@@ -22,7 +22,7 @@ bunx skills add bc1pzzfnxl/pzz
 The live toolbox is served at
 <https://pzz.bc1pzzfnxl.com/llms.txt>.
 
-## Develop
+## Develop & deploy
 
 ```bash
 bun scripts/generate.mjs                              # regenerate worker/llms.txt + the skill from tools.json
@@ -32,14 +32,4 @@ bunx wrangler deploy --config worker/wrangler.jsonc   # deploy the Worker
 `tools.json` is the only hand-maintained input. Everything else is generated,
 extracting each tool's description from its `llms.txt` or page metadata.
 
-## Deploy (CI)
-
-Connected to Cloudflare Workers Builds:
-
-| Setting | Value |
-| --- | --- |
-| Branch | `main` |
-| Root directory | *(repository root)* |
-| Build command | `node scripts/generate.mjs` |
-| Deploy command | `npx wrangler deploy --config worker/wrangler.jsonc` |
-| Secret | `GITHUB_TOKEN` (optional) |
+Deploys are manual on purpose — no CI.
