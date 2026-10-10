@@ -3,17 +3,12 @@
   "private": true,
   "type": "module",
   "packageManager": "bun@1.4.3",
-  "bin": {
-    "create-pzz": "scripts/create.ts"
-  },
   "scripts": {
-    "create": "bun scripts/create.ts",
     "generate": "bun scripts/generate.ts",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "typecheck": "tsc --noEmit",
-    "test": "bun test",
-    "smoke": "PZZ_SMOKE=1 bun test tests/smoke.test.ts"
+    "test": "bun test"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
