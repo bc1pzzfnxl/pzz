@@ -36,10 +36,13 @@ Paste this in your global `AGENTS.md`. It applies to every project:
 ```markdown
 ## Frontend toolbox
 
-For UI/frontend work, read `toolbox.md` (https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md)
-and load the skill of the tool that matches the task. Each tool has a skill named
-after it: `mdxcn`, `numbers`, `voidauth`, `kugiri`, `component-gallery`, `svgl`,
-`shadscan`, `env-style`, `shieldcn`.
+For any task involving Markdown/MDX, numbers and stats, authentication or login,
+text animation, UI wording and components, logos or brand marks, shadcn audits,
+local dev favicons, or README badges, read `toolbox.md`
+(https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md) and load the
+skill of the matching tool. Each tool has a skill named after it: `mdxcn`,
+`numbers`, `voidauth`, `kugiri`, `component-gallery`, `svgl`, `shadscan`,
+`env-style`, `shieldcn`.
 
 If the project has an `astro.config.*`, also load `skill-seo-astro`.
 ```
