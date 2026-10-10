@@ -1,51 +1,37 @@
 # AGENTS.md
 
-Universal guidance loaded for every project. A repository's own `AGENTS.md` adds
-to this file; OpenCode combines both rather than overriding.
+Guidance for working on the `pzz` repository itself. The global
+`~/.config/opencode/AGENTS.md` still applies.
 
-## Responses
+## Commands
 
-- Reply in the user's language; keep code, identifiers, and file paths in English.
-- Write docs and comments in English.
-- Lead with the answer; cut preamble and restatement.
-- After a change, state plainly **what you added, changed, and removed**.
-- When a command must be run, give it verbatim in a fenced code block.
-- Format with Markdown: short headings, tables for comparisons, fenced code for commands.
-- For large or irreversible changes, confirm the plan first; otherwise proceed and report the result.
+- Install: `bun install`
+- Lint: `bun run lint` (auto-fix: `bun run lint:fix`)
+- Typecheck: `bun run typecheck`
+- Unit tests (offline): `bun test`
+- Smoke test (network, several minutes): `bun run smoke`. Scaffolds Astro and Next under `~/.cache/pzz-smoke`, then lints, typechecks and builds each one.
+- Regenerate the toolbox (network): `bun run generate`. Uses `GITHUB_TOKEN`, or the `gh` login locally.
+- Scaffold a project: `bun run create <name> --app astro|next [--ui <name>] [--dry-run]`
+- Expose the global command after moving files: `bun link` (provides `create-pzz`)
 
-## Documentation
+## Layout
 
-- Update the docs in the same change whenever it alters them; a change is finished only once its docs match.
+- `pzz.json`: tools and component sets. The only hand-maintained data.
+- `scripts/create.ts`: `create-pzz` entry point.
+- `scripts/generate.ts`: builds `toolbox.md` and `skills/frontend-toolbox/SKILL.md` from `pzz.json`.
+- `scripts/lib/`: pure logic (config validation, description cleanup, rendering, scaffold helpers).
+- `templates/repo-AGENTS.md`: copied into every scaffolded project.
+- `biome.json`: lint and format config for this repo. Also copied into every scaffold.
+- `tests/`: unit tests, a CLI dry-run test, and the smoke test (gated by `PZZ_SMOKE=1`).
+- `.github/workflows/ci.yml`: lint, typecheck and tests on every push; smoke test after them.
 
-## Stack & tooling
+## Conventions
 
-- Reach for **bun** first: `bun install`, `bun run`, `bunx <pkg>`. Node and npm are not installed.
-- Assume **TypeScript** with `strict`; type every public boundary.
-- Build UI from **React components** (shadcn/ui).
-- Run the repository's formatter and linter before finishing.
-- Add a dependency only when the standard library or an existing dependency cannot do the job.
-
-## Frontend toolbox
-
-For any UI/frontend work — Markdown/MDX, numbers and stats, authentication, text
-animation, UI wording and components, logos, shadcn audits, local deployment, or
-READMEs — load the `frontend-toolbox` skill and use the tool it names.
-
-## Verification
-
-- Finish a task only after the project's checks pass: typecheck, lint, tests.
-- State the exact commands you ran and their outcome.
-- A change is done when its tests pass, not when the code is written.
-
-## Git & commits
-
-- Commit messages follow Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`.
-- Keep each commit focused on one change.
-- Keep secrets out of commits and history.
-- Branch names: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`.
-
-## Architecture
-
-- Keep shared project vocabulary in `GLOSSARY.md`; record hard-to-reverse decisions as ADRs.
-- Design **deep modules**: a large surface of behaviour behind a small interface at a clean seam.
-- Keep repository-specific commands, layout, and gotchas in the repository's `AGENTS.md`, not here.
+- Runtime is **bun only**. No Node, no npm. Every script starts with `#!/usr/bin/env bun`.
+- TypeScript `strict` with `noUncheckedIndexedAccess`. JSON input is validated in `scripts/lib/config.ts`; keep that boundary typed.
+- Scaffold tools are pinned in `TOOL_VERSIONS` (`scripts/lib/project.ts`). Never use `@latest`. Bump a pin deliberately, then run `bun run smoke`.
+- The SEO scaffold is **Astro only**. Do not add it to the Next path.
+- After editing `pzz.json`, run `bun run generate` and commit the regenerated files. Never hand-edit `toolbox.md` or `SKILL.md`.
+- Biome excludes `.agents`, `public` and `src/components/ui` in scaffolds. Keep `biome.json` as the single source for both.
+- Use scratch directories under `~` or `~/.cache`, not `/tmp`, which is a small tmpfs.
+- Verify a change by running `bun run lint`, `bun run typecheck` and `bun test`. Run `bun run smoke` when the scaffold output changes.
