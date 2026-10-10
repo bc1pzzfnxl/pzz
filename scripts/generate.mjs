@@ -4,6 +4,7 @@
 // tools.json is the only hand-maintained input (name, url, use). Everything else
 // is extracted from each site: an `llms.txt` when it exists, otherwise the page's
 // <title> / <meta name="description"> / og:description.
+import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,6 +13,20 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { homepage, tools } = JSON.parse(readFileSync(join(root, "tools.json"), "utf8"));
 
 const UA = { "user-agent": "Mozilla/5.0 (compatible; frontend-toolbox-builder/1.0)" };
+
+// Prefer an explicit token (CI). Locally, fall back to the already-authenticated
+// GitHub CLI so no secret has to be stored or pasted anywhere.
+function resolveGithubToken() {
+  const fromEnv = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  if (fromEnv) return fromEnv.trim();
+  try {
+    return execFileSync("gh", ["auth", "token"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+const GITHUB_TOKEN = resolveGithubToken();
 
 function firstMatch(html, patterns) {
   for (const re of patterns) {
@@ -25,7 +40,7 @@ async function githubDesc(repo) {
   if (!repo) return null;
   try {
     const headers = { ...UA, accept: "application/vnd.github+json" };
-    if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+    if (GITHUB_TOKEN) headers.authorization = `Bearer ${GITHUB_TOKEN}`;
     const res = await fetch(`https://api.github.com/repos/${repo}`, { headers });
     if (!res.ok) return null;
     const data = await res.json();
