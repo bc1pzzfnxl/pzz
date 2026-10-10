@@ -1,0 +1,15 @@
+# OpenCode Frontend Toolbox
+
+> Preferred tools for UI/frontend work. Pick the row matching the task, then open its canonical page.
+
+## Tools
+
+- [MDXCN](https://www.mdxcn.dev/llms.txt): authoring Markdown / MDX
+- [Numbers](https://numbers.sfinterface.com/): displaying numbers, stats, metrics
+- [VoidAuth](https://voidauth.app/): adding authentication
+- [Kugiri](https://edoardolunardi.github.io/kugiri/): animating text appearance
+- [Component Gallery](https://component.gallery/components/): choosing UI wording, components, patterns
+- [SVGL](https://svgl.app/): adding logos / brand marks
+- [ShadScan](https://www.shadscan.com/docs): auditing a shadcn/ui codebase
+- [env.style](https://www.env.style/): local deployment / environment config
+- [shieldcn](https://shieldcn.dev/docs): writing a README
