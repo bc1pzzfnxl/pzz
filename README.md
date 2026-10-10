@@ -1,103 +1,76 @@
 # pzz
 
-Agent guidance, a UI toolbox, and a project scaffolder. Runs on **bun only**.
+A toolbox for agents: the UI tools that go around my stack, each one paired with
+a skill that tells an agent when to use it and where to read about it. Markdown
+and skills only, framework agnostic. Runs on **bun**.
 
 ## Contents
 
 | Path | Purpose |
 | --- | --- |
-| `AGENTS.md` | Guidance for working on this repo. |
-| `pzz.json` | Tools and component sets. The only hand-maintained data. |
-| `toolbox.md` | Generated toolbox (canonical pages and descriptions). |
-| `skills/frontend-toolbox/` | Generated skill that lists the same tools. |
-| `biome.json` | Lint and format config, shared with every scaffold. |
-| `templates/repo-AGENTS.md` | `AGENTS.md` written into each new project. |
-| `scripts/create.ts` | Scaffolder, exposed as `create-pzz`. |
-| `scripts/generate.ts` | Regenerates `toolbox.md` and the skill from `pzz.json`. |
-| `scripts/lib/` | Config validation, description cleanup, rendering, scaffold helpers. |
-| `tests/` | Unit tests, a dry-run CLI test, and the smoke test. |
-| `.github/workflows/ci.yml` | CI: lint, typecheck, tests, then smoke. |
+| `pzz.json` | The tools. The only hand-maintained data. |
+| `toolbox.md` | Generated index of every tool. |
+| `skills/<tool>/SKILL.md` | Generated. One skill per tool. |
+| `scripts/generate.ts` | Renders `toolbox.md` and the skills from `pzz.json`. |
+| `scripts/lib/` | Config validation and rendering. |
+| `tests/` | Unit tests. |
+| `AGENTS.md` | Guidance for working on this repo, including how to add a tool. |
 
-## Setup
+## Install
+
+Install the skills for every harness that reads `.agents/skills`:
+
+```bash
+bunx skills add bc1pzzfnxl/pzz -g -s '*' -a universal -y
+```
+
+Then add the toolbox block from [Global AGENTS.md](#global-agentsmd) to your
+`~/.config/opencode/AGENTS.md`.
+
+## Global AGENTS.md
+
+Paste this in your global `AGENTS.md`. It applies to every project:
+
+```markdown
+## Frontend toolbox
+
+For UI work, check `toolbox.md` (https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md)
+and load the skill of the tool that matches the task.
+
+If the project has an `astro.config.*`, also load `skill-seo-astro`.
+```
+
+## How a tool is read
+
+Each tool has a `source` that says how an agent reads its docs:
+
+| Source | Meaning | Skill tells the agent to |
+| --- | --- | --- |
+| `llms` | The tool publishes an `llms.txt` index. | Read the `llms.txt` and follow its links. |
+| `meta` | No index. The page's meta description is the summary. | Use the summary, then open the page. |
+| `docs` | No index and no usable summary. | Scrape the page with the `chrome-devtools` MCP. |
+
+## Adding a tool
+
+Adding a tool is maintenance, and an agent does it. Ask an agent to add the
+tool; it follows the checklist in [AGENTS.md](AGENTS.md) to choose the source,
+then:
+
+```bash
+bun run generate
+bun run lint && bun run typecheck && bun test
+```
+
+Commit `pzz.json`, `toolbox.md` and `skills/` together.
+
+## Development
 
 ```bash
 bun install
-bun link        # exposes the create-pzz command
-```
-
-## Create a project
-
-```bash
-create-pzz <name> [--app astro|next] [--ui <name>] [--dry-run]
-```
-
-| Flag | Meaning |
-| --- | --- |
-| `--app astro` | Single-page site: Astro, React, Tailwind, shadcn, SEO scaffold. |
-| `--app next` | Multi-page app: Next.js, React, Tailwind, shadcn. |
-| `--ui <name>` | Component set from `pzz.json` (`ui`). Unknown names fail before anything is created. |
-| `--dry-run` | Print the steps without running them. |
-
-Without `--app`, the command asks in a terminal and defaults to `next`.
-
-Steps, in order:
-
-1. Framework: `create-next-app` or `create-astro` with React and Tailwind.
-2. `shadcn init`, then the `--ui` component set if one is given.
-3. **Astro only**: the [`skill-seo-astro`](https://github.com/bc1pzzfnxl/skill-seo-astro) SEO pages, its dependencies, a merged `astro.config.mjs` (React and Tailwind kept), and the same skill installed into `.agents/skills/` for every harness. Next gets no SEO scaffold.
-4. Biome: `biome.json` copied from this repo, `lint`, `lint:fix`, `format` and `typecheck` scripts, and one normalizing pass so `lint` passes from the first commit.
-5. Repo `AGENTS.md` from the template. An existing file is kept if it already has project sections, and the template sections are appended otherwise.
-6. `git init -b main` and a first commit.
-
-Tool versions are pinned in `scripts/lib/project.ts` (`TOOL_VERSIONS`). The Astro SEO scaffold is pinned to a commit of `skill-seo-astro`.
-
-> Scaffold on a large filesystem. `/tmp` is a small tmpfs and fills up with `node_modules`.
-
-## Toolbox
-
-`pzz.json` is the only input. Each entry has a `name`, a `url`, and a `task`. Descriptions are fetched, not written by hand: the tool's `llms.txt` when it exists, otherwise the page's meta description, otherwise the GitHub repository description.
-
-To add or change a tool:
-
-```bash
-$EDITOR pzz.json
-bun run generate
-git add -A && git commit -m "chore: update toolbox" && git push
-bunx skills update frontend-toolbox
-```
-
-Live toolbox: <https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md>
-
-## Component sets
-
-Each entry in `pzz.json` under `ui` is selected with `--ui <name>`:
-
-| `type` | Effect |
-| --- | --- |
-| `shadcn` | `bunx shadcn add <items>` |
-| `npm` | `bun add <packages>` |
-| `manual` | Prints a note with where to copy the components from. |
-
-## Tests and CI
-
-```bash
+bun run generate    # render toolbox.md and the skills (no network)
 bun run lint        # Biome
 bun run typecheck   # tsc --noEmit
-bun test            # unit tests and CLI dry-run, offline
-bun run smoke       # real scaffold of Astro and Next, then lint, typecheck and build
+bun test            # unit tests
 ```
 
-CI runs lint, typecheck and tests on every push. The smoke test runs after them.
-
-## Skills
-
-```bash
-bunx skills add bc1pzzfnxl/pzz                 # frontend-toolbox
-bunx skills add bc1pzzfnxl/skill-seo-astro     # Astro SEO
-```
-
-## Changing the scaffold
-
-- Bump a pinned tool in `TOOL_VERSIONS`, then run `bun run smoke`.
-- Change the shared lint rules in `biome.json`. It is also the file copied into every new project.
-- The SEO scaffold is for Astro only.
+CI runs lint, typecheck and tests on every push.
