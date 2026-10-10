@@ -14,7 +14,8 @@ and skills only, framework agnostic. Runs on **bun**.
 | `scripts/generate.ts` | Renders `toolbox.md` and the skills from `pzz.json`. |
 | `scripts/lib/` | Config validation and rendering. |
 | `tests/` | Unit tests. |
-| `AGENTS.md` | Guidance for working on this repo, including how to add a tool. |
+| `AGENTS.md` | Agent guidance. Identical to the global `~/.config/opencode/AGENTS.md`. |
+| `CONTRIBUTING.md` | How to work on this repo: commands, layout, adding a tool. |
 
 ## Install
 
@@ -60,7 +61,7 @@ Each tool has a `source` that says how an agent reads its docs:
 ## Adding a tool
 
 Adding a tool is maintenance, and an agent does it. Ask an agent to add the
-tool; it follows the checklist in [AGENTS.md](AGENTS.md) to choose the source,
+tool; it follows the checklist in [CONTRIBUTING.md](CONTRIBUTING.md) to choose the source,
 then:
 
 ```bash

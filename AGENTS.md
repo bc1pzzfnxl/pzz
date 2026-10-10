@@ -1,50 +1,57 @@
 # AGENTS.md
 
-Guidance for working on the `pzz` repository. The global
-`~/.config/opencode/AGENTS.md` still applies.
+Universal guidance loaded for every project. A repository's own `AGENTS.md` adds
+to this file; OpenCode combines both rather than overriding.
 
-## Commands
+## Responses
 
-- Install: `bun install`
-- Regenerate `toolbox.md` and the skills: `bun run generate` (no network)
-- Lint: `bun run lint` (auto-fix: `bun run lint:fix`)
-- Typecheck: `bun run typecheck`
-- Tests: `bun test`
+- Reply in the user's language; keep code, identifiers, and file paths in English.
+- Write docs and comments in English.
+- Lead with the answer; cut preamble and restatement.
+- After a change, state plainly **what you added, changed, and removed**.
+- When a command must be run, give it verbatim in a fenced code block.
+- Format with Markdown: short headings, tables for comparisons, fenced code for commands.
+- For large or irreversible changes, confirm the plan first; otherwise proceed and report the result.
 
-## Layout
+## Documentation
 
-- `pzz.json`: the tools. The only hand-maintained data.
-- `scripts/generate.ts`: renders `toolbox.md` and `skills/<tool>/SKILL.md` from `pzz.json`.
-- `scripts/lib/config.ts`: loads and validates `pzz.json`, and defines `slugify`.
-- `scripts/lib/render.ts`: pure rendering of the toolbox and of each skill.
-- `skills/<tool>/SKILL.md`: generated. One skill per tool.
-- `tests/`: unit tests for config validation and rendering.
+- Update the docs in the same change whenever it alters them; a change is finished only once its docs match.
 
-## Add or change a tool
+## Stack & tooling
 
-Adding a tool is the maintenance task, and it is done by an agent. For each tool:
+- Reach for **bun** first: `bun install`, `bun run`, `bunx <pkg>`. Node and npm are not installed.
+- Assume **TypeScript** with `strict`; type every public boundary.
+- Build UI from **React components** (shadcn/ui).
+- Run the repository's formatter and linter before finishing.
+- Add a dependency only when the standard library or an existing dependency cannot do the job.
 
-1. Check whether `<origin>/llms.txt` exists.
-   - Yes: `source` is `llms`, `url` is that `llms.txt`, and `desc` is a one-sentence summary of what the tool does, taken from the page's meta description.
-2. Otherwise, if the page has a meta description: `source` is `meta`, `url` is the page to read, and `desc` is that meta description, trimmed to one sentence.
-3. Otherwise: `source` is `docs`, `url` is the docs page, and `desc` is `null`. The skill will tell agents to scrape the page with the `chrome-devtools` MCP.
+## Frontend toolbox
 
-Never write a `desc` from memory. Copy it from the page, or use `docs`.
+For any task involving Markdown/MDX, numbers and stats, authentication or login,
+text animation, UI wording and components, logos or brand marks, shadcn audits,
+local dev favicons, or README badges, read `toolbox.md`
+(https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md) and load the
+skill of the matching tool. Each tool has a skill named after it: `mdxcn`,
+`numbers`, `voidauth`, `kugiri`, `component-gallery`, `svgl`, `shadscan`,
+`env-style`, `shieldcn`.
 
-Then:
+If the project has an `astro.config.*`, also load `skill-seo-astro`.
 
-```bash
-bun run generate
-bun run lint && bun run typecheck && bun test
-```
+## Verification
 
-Commit `pzz.json`, `toolbox.md` and `skills/` together.
+- Finish a task only after the project's checks pass: typecheck, lint, tests.
+- State the exact commands you ran and their outcome.
+- A change is done when its tests pass, not when the code is written.
 
-## Conventions
+## Git & commits
 
-- Runtime is **bun only**. No Node, no npm. Every script starts with `#!/usr/bin/env bun`.
-- TypeScript `strict` with `noUncheckedIndexedAccess`. `pzz.json` is validated in `scripts/lib/config.ts`; keep that boundary typed.
-- `generate` makes no network calls. Keep it that way: source checks happen when a tool is added.
-- Generated files carry a "do not edit by hand" marker. Change `pzz.json` or the renderer, then regenerate.
-- Skill names come from `slugify(name)`. Keep them unique; `parseConfig` rejects collisions.
-- Scratch directories go under `~`, not `/tmp`, which is a small tmpfs.
+- Commit messages follow Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`.
+- Keep each commit focused on one change.
+- Keep secrets out of commits and history.
+- Branch names: `feat/<slug>`, `fix/<slug>`, `chore/<slug>`.
+
+## Architecture
+
+- Keep shared project vocabulary in `GLOSSARY.md`; record hard-to-reverse decisions as ADRs.
+- Design **deep modules**: a large surface of behaviour behind a small interface at a clean seam.
+- Repository-specific commands, layout, and conventions live in the repository's `CONTRIBUTING.md`. If it exists, read it before changing code.
