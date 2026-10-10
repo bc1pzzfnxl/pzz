@@ -1,5 +1,5 @@
 {
-  "homepage": "https://pzz.bc1pzzfnxl.com/llms.txt",
+  "doc": "https://raw.githubusercontent.com/bc1pzzfnxl/pzz/main/toolbox.md",
   "tools": [
     { "name": "MDXCN", "url": "https://www.mdxcn.dev/", "use": "Markdown / MDX authoring" },
     { "name": "Numbers", "url": "https://numbers.sfinterface.com/", "use": "displaying numbers, stats, metrics" },

@@ -1,7 +1,0 @@
-{
-  "name": "frontend-toolbox",
-  "main": "src/index.ts",
-  "compatibility_date": "2026-10-01",
-  "rules": [{ "type": "Text", "globs": ["**/*.txt"], "fallthrough": true }],
-  "routes": [{ "pattern": "pzz.bc1pzzfnxl.com", "custom_domain": true }]
-}
