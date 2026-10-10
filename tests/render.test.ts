@@ -54,6 +54,13 @@ describe("renderSkill", () => {
     );
   });
 
+  test("keeps acronyms capitalized in the trigger", () => {
+    const badge: Tool = { ...docs, name: "shieldcn", task: "README badges" };
+    expect(renderSkill(badge, config.docUrl)).toContain(
+      "description: Use for README badges, with shieldcn.",
+    );
+  });
+
   test("keeps the description free of YAML-breaking colons", () => {
     for (const tool of [llms, docs]) {
       const line =

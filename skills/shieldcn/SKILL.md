@@ -1,6 +1,6 @@
 ---
 name: shieldcn
-description: Use for rEADME badges, with shieldcn.
+description: Use for README badges, with shieldcn.
 ---
 
 # shieldcn
